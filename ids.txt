@@ -1,0 +1,15 @@
+sudo mkdir -p /etc/snort/rules
+
+sudo touch /etc/snort/rules/local.rules
+
+sudo nano /etc/snort/rules/local.rules
+
+#Paste this in that
+alert icmp any any -> any any (msg:"Ping detected"; sid:1000001;)
+
+sudo snort -A console -q -c /etc/snort/snort.conf -i lo
+
+#open another terminal
+ping localhost
+
+#See in the first terminal it will be detected

@@ -1,0 +1,11 @@
+openssl genpkey -algorithm RSA -out private.key -pkeyopt rsa_keygen_bits:2048
+
+openssl req -new -key private.key -out request.csr
+
+openssl req -x509 -key private.key -in request.csr -out certificate.crt -days 365
+
+openssl pkcs12 -export -out bundle.p12 -inkey private.key -in certificate.crt
+
+openssl x509 -in certificate.crt -text -noout
+
+openssl s_client -connect example.com:443
